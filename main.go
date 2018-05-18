@@ -36,15 +36,8 @@ type slackMsg struct {
 
 var (
 	port int
-	// Random animals cribbed from Google Drive's "Anonymous [Animal]" notifications
 	animals = []string{
-		"alligator", "anteater", "armadillo", "auroch", "axolotl", "badger", "bat", "beaver", "buffalo",
-		"camel", "chameleon", "cheetah", "chipmunk", "chinchilla", "chupacabra", "cormorant", "coyote",
-		"crow", "dingo", "dinosaur", "dolphin", "duck", "elephant", "ferret", "fox", "frog", "giraffe",
-		"gopher", "grizzly", "hedgehog", "hippo", "hyena", "jackal", "ibex", "ifrit", "iguana", "koala",
-		"kraken", "lemur", "leopard", "liger", "llama", "manatee", "mink", "monkey", "narwhal", "nyan cat",
-		"orangutan", "otter", "panda", "penguin", "platypus", "python", "pumpkin", "quagga", "rabbit", "raccoon",
-		"rhino", "sheep", "shrew", "skunk", "slow loris", "squirrel", "turtle", "walrus", "wolf", "wolverine", "wombat",
+		"D+H"
 	}
 	// Username must be first.
 	payloadExp = regexp.MustCompile(`([@#][^\s]+):?(.*)`)
@@ -68,7 +61,7 @@ func readAnonymousMessage(r *http.Request) string {
 	msg := strings.TrimSpace(r.Form[keyText][0])
 	matches := payloadExp.FindStringSubmatch(msg)
 	if matches == nil {
-		return "Failed; message should be like: /anon @ashwin hey what's up?"
+		return "Failed; message should be like: /dh #channelname hey what's up?"
 	}
 	user := matches[1]
 	msg = strings.TrimSpace(matches[2])
@@ -76,7 +69,7 @@ func readAnonymousMessage(r *http.Request) string {
 	if err != nil {
 		return "Failed to send message."
 	}
-	return fmt.Sprintf("Anonymously sent [%s] to %s", msg, user)
+	return fmt.Sprintf("Sent [%s] to %s", msg, user)
 }
 
 // sendAnonymousMessage uses an incoming hook to Direct Message
@@ -86,7 +79,7 @@ func sendAnonymousMessage(username, message string) error {
 	payload, err := json.Marshal(slackMsg{
 		Text:     message,
 		Channel:  username,
-		Username: fmt.Sprintf("an anonymous %s", animals[rand.Intn(len(animals))]),
+		Username: fmt.Sprintf( animals[rand.Intn(len(animals))]),
 	})
 	if err != nil {
 		return err
