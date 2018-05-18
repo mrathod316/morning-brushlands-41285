@@ -59,7 +59,7 @@ func readAnonymousMessage(r *http.Request) string {
 	msg := strings.TrimSpace(r.Form[keyText][0])
 	matches := payloadExp.FindStringSubmatch(msg)
 	if matches == nil {
-		return "Failed; message should be like: /dh #channelname hey what's up?"
+		return "Failed; message should be like: /dh #channelname ThisIsTheAnnouncement"
 	}
 	user := matches[1]
 	msg = strings.TrimSpace(matches[2])
