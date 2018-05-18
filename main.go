@@ -16,7 +16,7 @@ import (
 const (
 	tokenConfig   = "INCOMING_SLACK_TOKEN"
 	webhookConfig = "INCOMING_SLACK_WEBHOOK"
-	// Incoming payload form will have the following keys:
+	//// Incoming payload form will have the following keys:
 	// (See: https://api.slack.com/slash-commands)
 	keyToken       = "token"
 	keyTeamID      = "team_id"
