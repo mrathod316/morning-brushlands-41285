@@ -36,9 +36,7 @@ type slackMsg struct {
 
 var (
 	port int
-	animals = []string{
-		"D+H"
-	}
+	animals = []string{"D+H"}
 	// Username must be first.
 	payloadExp = regexp.MustCompile(`([@#][^\s]+):?(.*)`)
 )
